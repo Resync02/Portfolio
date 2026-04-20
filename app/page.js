@@ -25,7 +25,7 @@ export default function Portfolio() {
   const profile = {
     name: "Iqbal Hafidz Ramadhan",
     role: "IT Consultant",
-    image: "/profile.jpeg"
+    image: "/Profile.jpeg"
   };
 
   const projects = [
