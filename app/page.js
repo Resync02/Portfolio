@@ -19,72 +19,110 @@ export default function Portfolio() {
   const [active, setActive] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-
   const isNeon = theme === "neon";
-
   const profile = {
     name: "Iqbal Hafidz Ramadhan",
-    role: "IT Consultant",
-    image: "public/Profile.jpeg"
+    role: "Freelancer",
+    image: "/profile.jpg"
   };
 
   const projects = [
     {
-      title: "E-Coblos",
-      desc: "Online Election via Website usings Codeigniter,PHP,MySql",
-      image: "/project1.png",
-      link: ""
+      title: "Promotion Warung Nasi Dua Putra Jaya",
+      desc: "Check it Out!",
+      image: "/C1.jpg",
+      link: "https://drive.google.com/file/d/1fxhNDYQcxaVWJunmdBCR0SpZcmY86ERW/view?usp=sharing"
     },
-        {
-      title: "Internet of Things",
-      desc: "Temperature and Humidity Monitoring for Greenhouse",
-      image: "/project2.png",
-      link: ""
+    {
+      title: "Hariyo Ardhito Staff Short Content",
+      desc: "Check it Out!",
+      image: "/C2.jpg",
+      link: "https://drive.google.com/file/d/1_8Zw7U1zDK5STRV6RY09GNe6M43Kk031/view?usp=sharing"
     },
-        {
-      title: "Expert System",
-      desc: "Analytics Body Mass Index and Body Fat Percentage usings Forward Chaining and Neural Network Algorithms",
-      image: "/project3.png",
-      link: ""
+    {
+      title: "IoT Project Harvest Moon Style",
+      desc: "Check it Out!",
+      image: "/C3.jpg",
+      link: "https://drive.google.com/file/d/199XBOOTq9PdoJvIX-QRm1cQQehsr7sCT/view?usp=drive_link"
     },
-            {
-      title: "Machine Learning",
-      desc: "Diabetes detection using Support Vector Machine algorithms",
-      image: "/project4.png",
-      link: ""
+    {
+      title: "Short Movie - Perbedaan Bukan Halangan",
+      desc: "Check it Out!",
+      image: "/C4.jpg",
+      link: "https://drive.google.com/file/d/1zJyISGxFrAvu777YzUd9FJzClDMSl9hZ/view?usp=drive_link"
     },
-            {
-      title: "Network Engineer",
-      desc: "Network Topology Configuration usings VLAN, STP, PVST",
-      image: "/project5.png",
-      link: ""
+    {
+      title: "Instagram Reels Content",
+      desc: "Check it Out!",
+      image: "/C5.jpg",
+      link: "https://drive.google.com/file/d/11FTvJybQiA8uJL-eg3Djf9aRzMOjCj8T/view?usp=drive_link"
     },
-            {
-      title: "Project 3",
-      desc: "Monitoring suhu dengan DHT22",
-      image: "/project1.png",
+    {
+      title: "Mini Podcast",
+      desc: "Check it Out!",
+      image: "/C6.jpg",
+      link: "https://drive.google.com/file/d/10iEoqQaH37GjFRRH-7gAZwWX7O2mJi84/view?usp=drive_link"
+    },
+    {
+      title: "Youtube Channel",
+      desc: "Thanks for your support 😁✌️",
+      image: "/C7.jpg",
+      link: "https://www.youtube.com/@GodBless312"
+    },
+    {
+      title: "Brutus Chatbot",
+      desc: "Coming Soo",
+      image: "/NF.jpg",
       link: ""
     },
     {
-      title: "Project 4",
-      desc: "Klik untuk lihat hasil video",
-      image: "/project2.png",
-      link: "https://drive.google.com/"
+      title: "E-Coblos Online Election Via Website",
+      desc: "Coming Soon",
+      image: "/NF.jpg",
+      link: ""
+    },
+    {
+      title: "SRADDHA Coffee Website",
+      desc: "Coming Soon",
+      image: "/NF.jpg",
+      link: ""
     }
   ];
 
   const certifications = [
     {
-      title: "Cisco Networking Basics",
-      image: "/cert1.png"
+      title: "Program Kreativitas Mahasiswa 2026",
+      image: "/S1.png"
     },
     {
-      title: "Cyber Security Fundamentals",
-      image: "/cert2.png"
+      title: "International BMC Competition Creativepreneur Festival 2025",
+      image: "/S4.png"
     },
     {
-      title: "Python Programming",
-      image: "/cert3.png"
+      title: "Pemilihan Mahasiswa Berprestasi 2025",
+      image: "/S3.png"
+    },
+    {
+      title: "BiU International Stadium Gene",
+      image: "/S4.png"
+    }
+  ];
+
+    const organizations = [
+    {
+      title: "Sekretaris Karang Taruna 2023",
+      desc: "",
+      image: "/O1.jpeg"
+    },
+    {
+      title: "Sekretaris Karang Taruna 2024",
+      desc: "",
+      image: "/O2.jpeg"
+    },
+    {
+      title: "Ketua Karang Taruna 2025",
+      desc: "",
+      image: "/O3.jpeg"
     }
   ];
 
@@ -105,10 +143,10 @@ export default function Portfolio() {
     return () => observer.disconnect();
   }, []);
 
-  const navItems = ["home", "about", "projects", "certifications", "skills", "contact"];
+const navItems = ["main", "projects", "certifications",  "Organization", "skills", "contact"];
 
   return (
-    <div className={`min-h-screen scroll-smooth transition-all duration-500 ${
+    <div className={`min-h-screen transition-all duration-500 ${
       isNeon
         ? "bg-gradient-to-b from-black via-[#020617] to-black text-white"
         : "bg-[#2d1f14] text-[#f5e6d3]"
@@ -119,11 +157,15 @@ export default function Portfolio() {
         <h1 className="font-bold text-lg">MyPortfolio</h1>
 
         <div className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => (
-            <a key={item} href={`#${item}`} className={`capitalize ${active === item ? "text-cyan-400" : ""}`}>
-              {item}
-            </a>
-          ))}
+        {navItems.map((item) => (
+          <a 
+            key={item} 
+            href={`#${item}`} 
+            className="capitalize"
+          >
+            {item}
+          </a>
+        ))}
 
           <button onClick={() => setTheme(isNeon ? "wood" : "neon")}
             className="p-2 rounded-full border border-cyan-400">
@@ -136,31 +178,33 @@ export default function Portfolio() {
         </button>
       </nav>
 
-      {/* HERO */}
-      <section id="home" className="flex flex-col items-center justify-center text-center py-32 px-6">
+      {/* MAIN (HOME + ABOUT) */}
+      <section id="main" className="flex flex-col items-center text-center py-32 px-6">
+
         <motion.img
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           src={profile.image}
           onClick={() => setSelectedImage(profile.image)}
-          className="w-32 md:w-36 h-32 md:h-36 rounded-full border-4 border-cyan-400 cursor-pointer hover:scale-110 transition"
+          className="w-36 md:w-36 aspect-square object-cover rounded-full border-4 border-cyan-400 cursor-pointer hover:scale-110 transition shadow-[0_0_25px_#22d3ee]"
         />
 
         <h1 className="text-4xl md:text-5xl font-bold mt-6">{profile.name}</h1>
-        <p className="text-lg md:text-xl mt-3">{profile.role}</p>
+        <p className="text-lg md:text-xl mt-3 mb-10">{profile.role}</p>
+
+        {/* ABOUT */}
+        <div className="max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-semibold mb-6">About Me</h2>
+          <p>
+Saya adalah mahasiswa Teknik Informatika yang memiliki ketertarikan utama di bidang Cyber Security dan teknologi jaringan, serta didukung dengan kemampuan di bidang kreatif seperti video editing. Saya memiliki pemahaman dasar mengenai sistem, jaringan, dan troubleshooting, serta terbiasa menggunakan tools seperti Kali Linux dalam eksplorasi dan pembelajaran keamanan siber.
+
+Di sisi lain, saya juga memiliki pengalaman dalam video editing, di mana saya mampu mengolah materi menjadi konten yang menarik dan komunikatif. Kemampuan ini membantu saya dalam menyampaikan informasi secara lebih efektif dan kreatif.
+
+Saya juga aktif dalam organisasi, yang membentuk kemampuan saya dalam kepemimpinan, komunikasi, dan kerja sama tim. Saya merupakan pribadi yang adaptif, disiplin, dan memiliki keinginan tinggi untuk terus belajar serta mengembangkan kemampuan, khususnya di bidang Cyber Security.
+          </p>
+        </div>
       </section>
 
-      {/* ABOUT */}
-      <section id="about" className="px-6 py-20 max-w-3xl mx-auto text-center">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-6">About Me</h2>
-        <p>
-           Saya adalah seorang Cyber Security enthusiast yang berfokus pada penetration testing dan network security. 
-Saya memiliki ketertarikan dalam mengidentifikasi celah keamanan serta memahami bagaimana sistem dapat diserang dan diamankan. Dalam proses belajar, saya telah menggunakan berbagai tools seperti Nmap, Wireshark, dan Metasploit untuk melakukan simulasi pengujian keamanan. 
-Saya memiliki semangat belajar yang tinggi dan terus mengembangkan kemampuan untuk menjadi profesional di bidang keamanan siber.
-        </p>
-      </section>
-
-      {/* PROJECTS (GRID RESPONSIVE - TURUN KE BAWAH) */}
       <section id="projects" className="px-6 py-20 max-w-6xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-semibold mb-10 text-center">Projects</h2>
 
@@ -199,24 +243,42 @@ Saya memiliki semangat belajar yang tinggi dan terus mengembangkan kemampuan unt
         </div>
       )}
 
-      {/* CERTIFICATIONS (GRID RESPONSIVE) */}
-      <section id="certifications" className="px-6 py-20 text-center">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-10">Certifications</h2>
+<section id="certifications" className="px-6 py-20 max-w-6xl mx-auto">
+  <h2 className="text-2xl md:text-3xl font-semibold mb-10 text-center">Certifications</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
-          {certifications.map((cert, i) => (
-            <div key={i} className="w-full max-w-xs">
-              <Card>
-                <img
-                  src={cert.image}
-                  onClick={() => setSelectedImage(cert.image)}
-                  className="w-full h-32 object-cover cursor-pointer hover:scale-105 transition"
-                />
-                <CardContent>
-                  <p className="text-sm">{cert.title}</p>
-                </CardContent>
-              </Card>
-            </div>
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    {certifications.map((cert, i) => (
+      <div key={i}>
+        <Card>
+          <img
+            src={cert.image}
+            onClick={() => setSelectedImage(cert.image)}
+            className="w-full h-40 object-cover cursor-pointer hover:scale-105 transition"
+          />
+          <CardContent>
+            <p className="text-sm">{cert.title}</p>
+          </CardContent>
+        </Card>
+      </div>
+    ))}
+  </div>
+</section>
+
+<section id="organization" className="px-6 py-20 max-w-6xl mx-auto">
+        <h2 className="text-2xl md:text-3xl font-semibold mb-10 text-center">Organization</h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {organizations.map((o, i) => (
+            <Card key={i}>
+              <img src={o.image}
+                onClick={() => setSelectedImage(o.image)}
+                className="w-full h-40 object-cover cursor-pointer hover:scale-105 transition"
+              />
+              <CardContent>
+                <h3>{o.title}</h3>
+                <p>{o.desc}</p>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </section>
