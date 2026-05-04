@@ -103,7 +103,7 @@ export default function Portfolio() {
       image: "/S3.png"
     },
     {
-      title: "BiU International Stadium Gene",
+      title: "BiU International Stadium General",
       image: "/S4.png"
     }
   ];
