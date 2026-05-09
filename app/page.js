@@ -112,17 +112,17 @@ export default function Portfolio() {
     {
       title: "Sekretaris Karang Taruna 2023",
       desc: "",
-      image: "/O1.jpeg"
+      image: "/O1.jpg"
     },
     {
       title: "Sekretaris Karang Taruna 2024",
       desc: "",
-      image: "/O2.jpeg"
+      image: "/O2.jpg"
     },
     {
       title: "Ketua Karang Taruna 2025",
       desc: "",
-      image: "/O3.jpeg"
+      image: "/O3.jpg"
     }
   ];
 
