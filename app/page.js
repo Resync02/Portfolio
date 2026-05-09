@@ -96,7 +96,7 @@ export default function Portfolio() {
     },
     {
       title: "International BMC Competition Creativepreneur Festival 2025",
-      image: "/S4.png"
+      image: "/S2.png"
     },
     {
       title: "Pemilihan Mahasiswa Berprestasi 2025",
