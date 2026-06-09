@@ -70,12 +70,6 @@ export default function Portfolio() {
       link: "https://www.youtube.com/@GodBless312"
     },
     {
-      title: "Brutus Chatbot",
-      desc: "Coming Soo",
-      image: "/NF.jpg",
-      link: ""
-    },
-    {
       title: "E-Coblos Online Election Via Website",
       desc: "Coming Soon",
       image: "/NF.jpg",
