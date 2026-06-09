@@ -71,15 +71,15 @@ export default function Portfolio() {
     },
     {
       title: "E-Coblos Online Election Via Website",
-      desc: "Coming Soon",
-      image: "/NF.jpg",
-      link: ""
+      desc: "Check it Out!",
+      image: "/C9.jpg",
+      link: "https://github.com/Resync02/ECoblos"
     },
     {
       title: "SRADDHA Coffee Website",
-      desc: "Coming Soon",
-      image: "/NF.jpg",
-      link: ""
+      desc: "Check it Out!",
+      image: "/C8.jpg",
+      link: "https://github.com/Resync02/SraddhaCafe"
     }
   ];
 
@@ -117,6 +117,11 @@ export default function Portfolio() {
       title: "Ketua Karang Taruna 2025",
       desc: "",
       image: "/O3.jpg"
+    },
+        {
+      title: "LIONS INTERNATIONAL 307-B1 Pulpintro Bekasi",
+      desc: "",
+      image: "/O4.jpg"
     }
   ];
 
