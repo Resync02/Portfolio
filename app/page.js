@@ -80,6 +80,12 @@ export default function Portfolio() {
       desc: "Check it Out!",
       image: "/C8.jpg",
       link: "https://github.com/Resync02/SraddhaCafe"
+    },
+        {
+      title: "Enterprise-Network Lab",
+      desc: "Check it Out!",
+      image: "/C10.jpg",
+      link: "https://github.com/Resync02/Enterprise-Network-Lab"
     }
   ];
 
