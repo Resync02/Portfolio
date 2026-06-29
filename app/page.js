@@ -491,7 +491,7 @@ export default function Portfolio() {
         color: th.textMuted, borderTop: `1px solid ${th.border}`,
         position: "relative", zIndex: 1,
       }}>
-        © 2025 Iqbal Hafidz Ramadhan — Built with Next.js
+        © 2025 Iqbal Hafidz Ramadhan Built with Next.js
       </footer>
 
       {/* ── IMAGE ZOOM ── */}
