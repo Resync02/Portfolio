@@ -1,38 +1,68 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
-import { Mail, Phone, Globe, ChevronDown, ExternalLink, GitBranch } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Mail, Phone, Globe, ArrowUpRight, GitBranch, ArrowDown } from "lucide-react";
 
 // ─── TRANSLATIONS ───────────────────────────────────────────────────────────
 const t = {
   id: {
     role: "Freelancer & Mahasiswa Teknik Informatika",
-    nav: ["Beranda", "Proyek", "Sertifikasi", "Organisasi", "Keahlian", "Kontak"],
-    navIds: ["main", "projects", "certifications", "organization", "skills", "contact"],
+    heroLine1: "Membangun solusi digital di persimpangan",
+    heroKeyword: "keamanan siber",
+    heroLine2: "dan kreativitas visual.",
+    heroDesc: "Mahasiswa Teknik Informatika yang fokus pada cyber security & jaringan, dengan kemampuan tambahan di video editing dan produksi konten.",
+    nav: ["Beranda", "Tentang", "Proyek", "Sertifikasi", "Organisasi", "Kontak"],
+    navIds: ["main", "about", "projects", "certifications", "organization", "contact"],
+    ctaPrimary: "Hubungi Saya",
+    ctaSecondary: "Lihat Proyek",
+    aboutEyebrow: "Profil",
     aboutTitle: "Tentang Saya",
-    about: "Mahasiswa Teknik Informatika dengan fokus utama di bidang Cyber Security dan teknologi jaringan, didukung kemampuan kreatif seperti video editing. Berpengalaman dengan tools seperti Kali Linux dan aktif dalam organisasi untuk mengembangkan kepemimpinan dan kerja tim.",
-    projectsTitle: "Proyek",
-    certsTitle: "Sertifikasi",
-    orgTitle: "Organisasi",
+    about: "Saya adalah mahasiswa Teknik Informatika dengan ketertarikan utama di bidang Cyber Security dan teknologi jaringan, serta didukung kemampuan kreatif seperti video editing. Saya memiliki pemahaman dasar mengenai sistem, jaringan, dan troubleshooting, serta terbiasa menggunakan tools seperti Kali Linux dalam eksplorasi dan pembelajaran keamanan siber.",
+    about2: "Di sisi lain, saya juga berpengalaman dalam video editing untuk mengolah materi menjadi konten yang menarik dan komunikatif. Saya juga aktif berorganisasi, membentuk kemampuan kepemimpinan, komunikasi, dan kerja sama tim.",
     skillsTitle: "Keahlian",
-    contactTitle: "Kontak",
-    viewProject: "Lihat Proyek →",
-    scrollDown: "Scroll ke bawah",
+    projectsEyebrow: "Portofolio",
+    projectsTitle: "Proyek Terpilih",
+    certsEyebrow: "Pencapaian",
+    certsTitle: "Sertifikasi & Penghargaan",
+    orgEyebrow: "Pengalaman",
+    orgTitle: "Organisasi",
+    contactEyebrow: "Mari Terhubung",
+    contactTitle: "Tertarik bekerja sama?",
+    contactDesc: "Terbuka untuk proyek freelance, kolaborasi, maupun sekadar diskusi seputar teknologi.",
+    viewProject: "Lihat Detail",
+    statProjects: "Proyek",
+    statCerts: "Sertifikasi",
+    statOrg: "Organisasi",
   },
   en: {
     role: "Freelancer & Informatics Engineering Student",
-    nav: ["Home", "Projects", "Certifications", "Organization", "Skills", "Contact"],
-    navIds: ["main", "projects", "certifications", "organization", "skills", "contact"],
+    heroLine1: "Building digital solutions at the intersection of",
+    heroKeyword: "cyber security",
+    heroLine2: "and visual creativity.",
+    heroDesc: "Informatics Engineering student focused on cyber security & networking, with additional skills in video editing and content production.",
+    nav: ["Home", "About", "Projects", "Certifications", "Organization", "Contact"],
+    navIds: ["main", "about", "projects", "certifications", "organization", "contact"],
+    ctaPrimary: "Contact Me",
+    ctaSecondary: "View Projects",
+    aboutEyebrow: "Profile",
     aboutTitle: "About Me",
-    about: "Informatics Engineering student focused on Cyber Security and network technology, supported by creative skills in video editing. Experienced with tools like Kali Linux and active in organizations to develop leadership and teamwork.",
-    projectsTitle: "Projects",
-    certsTitle: "Certifications",
-    orgTitle: "Organization",
+    about: "I'm an Informatics Engineering student with a primary interest in Cyber Security and network technology, supported by creative skills such as video editing. I have a foundational understanding of systems, networking, and troubleshooting, and I'm familiar with tools like Kali Linux for cyber security exploration and learning.",
+    about2: "On the other hand, I also have experience in video editing, turning raw material into engaging and communicative content. I'm also active in organizations, which has shaped my leadership, communication, and teamwork skills.",
     skillsTitle: "Skills",
-    contactTitle: "Contact",
-    viewProject: "View Project →",
-    scrollDown: "Scroll down",
+    projectsEyebrow: "Portfolio",
+    projectsTitle: "Selected Projects",
+    certsEyebrow: "Achievements",
+    certsTitle: "Certifications & Awards",
+    orgEyebrow: "Experience",
+    orgTitle: "Organization",
+    contactEyebrow: "Let's Connect",
+    contactTitle: "Interested in working together?",
+    contactDesc: "Open to freelance projects, collaborations, or just a conversation about technology.",
+    viewProject: "View Detail",
+    statProjects: "Projects",
+    statCerts: "Certifications",
+    statOrg: "Organizations",
   },
 };
 
@@ -63,96 +93,75 @@ const organizations = [
   { title: "LIONS INTERNATIONAL 307-B1 Pulpintro Bekasi", image: "/O4.jpg" },
 ];
 
-const skills = ["HTML", "CSS", "JavaScript", "Python", "Cyber Security", "Kali Linux", "CapCut", "Internet of Things", "Hardware", "Software", "Networking", "SQL", "PHP"];
+const skills = ["HTML", "CSS", "JavaScript", "Python", "Cyber Security", "Kali Linux", "CapCut", "IoT", "Hardware", "Software", "Networking", "SQL", "PHP"];
 
-// ─── THEME TOKENS ───────────────────────────────────────────────────────────
+// ─── THEME TOKENS — clean, professional, not overly dark ──────────────────
 const themes = {
-  dark: {
-    bg: "#070b14",
-    surface: "#0d1526",
-    surfaceHover: "#111d35",
-    border: "rgba(34,211,238,0.18)",
-    borderHover: "rgba(34,211,238,0.55)",
-    accent: "#22d3ee",
-    accentGlow: "rgba(34,211,238,0.25)",
-    accentSoft: "rgba(34,211,238,0.08)",
-    text: "#e2f0f7",
-    textMuted: "#6b8fa8",
-    navBg: "rgba(7,11,20,0.85)",
-    gridLine: "rgba(34,211,238,0.04)",
-  },
   light: {
-    bg: "#f0f4fa",
+    bg: "#fafafa",
+    bgAlt: "#ffffff",
     surface: "#ffffff",
-    surfaceHover: "#f7faff",
-    border: "rgba(37,99,235,0.15)",
-    borderHover: "rgba(37,99,235,0.45)",
+    surfaceAlt: "#f4f5f7",
+    border: "#e4e6eb",
+    borderHover: "#c7cbd4",
     accent: "#2563eb",
-    accentGlow: "rgba(37,99,235,0.18)",
-    accentSoft: "rgba(37,99,235,0.07)",
-    text: "#0f172a",
-    textMuted: "#64748b",
-    navBg: "rgba(240,244,250,0.88)",
-    gridLine: "rgba(37,99,235,0.04)",
+    accentSoft: "#eef3ff",
+    text: "#15181f",
+    textMuted: "#5b616e",
+    textFaint: "#9aa0ad",
+    navBg: "rgba(250,250,250,0.85)",
+    shadow: "0 1px 2px rgba(15,23,42,0.04), 0 8px 24px rgba(15,23,42,0.04)",
+    shadowHover: "0 4px 14px rgba(15,23,42,0.08), 0 16px 36px rgba(15,23,42,0.08)",
+  },
+  dark: {
+    bg: "#15171c",
+    bgAlt: "#1b1e25",
+    surface: "#1e2128",
+    surfaceAlt: "#23262e",
+    border: "#2d313a",
+    borderHover: "#3d4250",
+    accent: "#5b9aff",
+    accentSoft: "rgba(91,154,255,0.1)",
+    text: "#eef0f3",
+    textMuted: "#a3a9b5",
+    textFaint: "#6b7180",
+    navBg: "rgba(21,23,28,0.85)",
+    shadow: "0 1px 2px rgba(0,0,0,0.2), 0 8px 24px rgba(0,0,0,0.2)",
+    shadowHover: "0 4px 14px rgba(0,0,0,0.3), 0 16px 36px rgba(0,0,0,0.3)",
   },
 };
 
 // ─── COMPONENTS ─────────────────────────────────────────────────────────────
 
-function GridBg({ th }) {
+function Eyebrow({ children, th }) {
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", overflow: "hidden" }}>
-      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-            <path d="M 48 0 L 0 0 0 48" fill="none" stroke={th.gridLine} strokeWidth="1" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grid)" />
-      </svg>
+    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "14px" }}>
+      <span style={{ width: "20px", height: "2px", background: th.accent, borderRadius: "2px" }} />
+      <span style={{ fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: th.accent }}>
+        {children}
+      </span>
     </div>
   );
 }
 
-function Tag({ label, th }) {
-  return (
-    <span style={{
-      fontSize: "10px", letterSpacing: "0.08em", fontWeight: 600, textTransform: "uppercase",
-      padding: "2px 8px", borderRadius: "4px",
-      background: th.accentSoft, color: th.accent,
-      border: `1px solid ${th.border}`,
-    }}>{label}</span>
-  );
-}
-
-function Card({ children, th, style = {} }) {
+function Card({ children, th, style = {}, hoverable = true }) {
   const [hovered, setHovered] = useState(false);
   return (
-    <motion.div
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
+    <div
+      onMouseEnter={() => hoverable && setHovered(true)}
+      onMouseLeave={() => hoverable && setHovered(false)}
       style={{
-        background: hovered ? th.surfaceHover : th.surface,
+        background: th.surface,
         border: `1px solid ${hovered ? th.borderHover : th.border}`,
-        borderRadius: "14px",
+        borderRadius: "16px",
         overflow: "hidden",
         transition: "all 0.25s ease",
-        boxShadow: hovered ? `0 0 24px ${th.accentGlow}` : "none",
+        boxShadow: hovered ? th.shadowHover : th.shadow,
+        transform: hovered ? "translateY(-3px)" : "translateY(0)",
         ...style,
       }}
     >
       {children}
-    </motion.div>
-  );
-}
-
-function SectionTitle({ children, th }) {
-  return (
-    <div style={{ marginBottom: "48px", textAlign: "center" }}>
-      <span style={{ display: "inline-block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: th.accent, fontWeight: 700, marginBottom: "10px" }}>
-        ◈ {children}
-      </span>
-      <div style={{ width: "40px", height: "2px", background: th.accent, margin: "0 auto", borderRadius: "2px", opacity: 0.6 }} />
     </div>
   );
 }
@@ -160,11 +169,12 @@ function SectionTitle({ children, th }) {
 // ─── MAIN ────────────────────────────────────────────────────────────────────
 
 export default function Portfolio() {
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState("light");
   const [lang, setLang] = useState("id");
   const [active, setActive] = useState("main");
   const [menuOpen, setMenuOpen] = useState(false);
   const [zoom, setZoom] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
   const th = themes[mode];
   const tx = t[lang];
 
@@ -172,374 +182,387 @@ export default function Portfolio() {
     const sections = document.querySelectorAll("section[id]");
     const obs = new IntersectionObserver(
       (entries) => entries.forEach(e => e.isIntersecting && setActive(e.target.id)),
-      { threshold: 0.4 }
+      { threshold: 0.35 }
     );
     sections.forEach(s => obs.observe(s));
-    return () => obs.disconnect();
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll);
+    return () => { obs.disconnect(); window.removeEventListener("scroll", onScroll); };
   }, []);
 
   return (
-    <div style={{ minHeight: "100vh", background: th.bg, color: th.text, fontFamily: "'Inter', 'Geist', system-ui, sans-serif", position: "relative", transition: "all 0.4s ease" }}>
-      <GridBg th={th} />
+    <div style={{ minHeight: "100vh", background: th.bg, color: th.text, fontFamily: "'Inter', system-ui, -apple-system, sans-serif", transition: "background 0.3s ease, color 0.3s ease" }}>
 
       {/* ── NAVBAR ── */}
       <nav style={{
         position: "fixed", top: 0, width: "100%", zIndex: 100,
-        background: th.navBg, backdropFilter: "blur(18px)",
-        borderBottom: `1px solid ${th.border}`,
+        background: th.navBg, backdropFilter: "blur(16px)",
+        borderBottom: scrolled ? `1px solid ${th.border}` : "1px solid transparent",
+        transition: "border-color 0.3s ease",
         display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "0 32px", height: "60px",
+        padding: "0 5vw", height: "68px",
       }}>
-        {/* Logo */}
-        <span style={{ fontWeight: 700, fontSize: "16px", letterSpacing: "0.05em", color: th.accent }}>
-          IHR<span style={{ color: th.textMuted }}>.</span>
-        </span>
+        <a href="#main" style={{ fontWeight: 800, fontSize: "16px", letterSpacing: "-0.01em", color: th.text, textDecoration: "none" }}>
+          Iqbal<span style={{ color: th.accent }}>.</span>
+        </a>
 
-        {/* Desktop nav links */}
-        <div style={{ display: "flex", gap: "28px", alignItems: "center" }} className="nav-links">
+        <div style={{ display: "flex", gap: "32px", alignItems: "center" }} className="nav-links">
           {tx.nav.map((item, i) => (
-            <a
-              key={item}
-              href={`#${tx.navIds[i]}`}
+            <a key={item} href={`#${tx.navIds[i]}`}
               style={{
-                fontSize: "13px", fontWeight: 500, letterSpacing: "0.03em",
-                color: active === tx.navIds[i] ? th.accent : th.textMuted,
-                textDecoration: "none", transition: "color 0.2s",
-                borderBottom: active === tx.navIds[i] ? `1.5px solid ${th.accent}` : "1.5px solid transparent",
-                paddingBottom: "2px",
-              }}
-            >{item}</a>
+                fontSize: "13.5px", fontWeight: 500,
+                color: active === tx.navIds[i] ? th.text : th.textMuted,
+                textDecoration: "none", transition: "color 0.2s", position: "relative",
+              }}>
+              {item}
+              {active === tx.navIds[i] && (
+                <span style={{ position: "absolute", bottom: "-20px", left: 0, right: 0, height: "2px", background: th.accent, borderRadius: "2px" }} />
+              )}
+            </a>
           ))}
         </div>
 
-        {/* Toggles */}
-        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-          {/* Lang toggle */}
-          <button
-            onClick={() => setLang(lang === "id" ? "en" : "id")}
-            title="Toggle language"
+        <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+          <button onClick={() => setLang(lang === "id" ? "en" : "id")} title="Toggle language"
             style={{
-              background: th.accentSoft, border: `1px solid ${th.border}`,
-              borderRadius: "8px", padding: "5px 10px",
-              fontSize: "13px", fontWeight: 700, cursor: "pointer",
-              color: th.accent, transition: "all 0.2s",
+              background: th.surfaceAlt, border: `1px solid ${th.border}`,
+              borderRadius: "8px", padding: "6px 11px",
+              fontSize: "12px", fontWeight: 700, cursor: "pointer",
+              color: th.textMuted, transition: "all 0.2s",
               display: "flex", alignItems: "center", gap: "6px",
-            }}
-          >
-            {lang === "id"
-              ? <><span>🇮🇩</span><span style={{ fontSize: "11px" }}>ID</span></>
-              : <><span>🇬🇧</span><span style={{ fontSize: "11px" }}>EN</span></>
-            }
+            }}>
+            {lang === "id" ? <>🇮🇩 ID</> : <>🇬🇧 EN</>}
           </button>
 
-          {/* Dark/Light toggle */}
-          <button
-            onClick={() => setMode(mode === "dark" ? "light" : "dark")}
-            title="Toggle theme"
+          <button onClick={() => setMode(mode === "dark" ? "light" : "dark")} title="Toggle theme"
             style={{
-              background: th.accentSoft, border: `1px solid ${th.border}`,
-              borderRadius: "8px", padding: "5px 10px",
-              fontSize: "16px", cursor: "pointer",
-              transition: "all 0.2s", lineHeight: 1,
-            }}
-          >
+              background: th.surfaceAlt, border: `1px solid ${th.border}`,
+              borderRadius: "8px", padding: "6px 10px",
+              fontSize: "15px", cursor: "pointer", lineHeight: 1,
+            }}>
             {mode === "dark" ? "☀️" : "🌙"}
           </button>
 
-          {/* Hamburger mobile */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            style={{ background: "none", border: "none", color: th.accent, cursor: "pointer", fontSize: "20px" }}
-            className="hamburger"
-          >
+          <a href="#contact" className="cta-nav" style={{
+            background: th.accent, color: "#fff", textDecoration: "none",
+            padding: "8px 16px", borderRadius: "8px", fontSize: "13px", fontWeight: 600,
+            marginLeft: "4px",
+          }}>{tx.ctaPrimary}</a>
+
+          <button onClick={() => setMenuOpen(!menuOpen)}
+            style={{ background: "none", border: "none", color: th.text, cursor: "pointer", fontSize: "20px" }}
+            className="hamburger">
             {menuOpen ? "✕" : "☰"}
           </button>
         </div>
       </nav>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}
             style={{
-              position: "fixed", top: "60px", left: 0, right: 0, zIndex: 99,
-              background: th.navBg, backdropFilter: "blur(18px)",
-              borderBottom: `1px solid ${th.border}`,
-              padding: "16px 32px", display: "flex", flexDirection: "column", gap: "16px",
-            }}
-          >
+              position: "fixed", top: "68px", left: 0, right: 0, zIndex: 99,
+              background: th.bgAlt, borderBottom: `1px solid ${th.border}`,
+              padding: "8px 5vw 20px", display: "flex", flexDirection: "column", gap: "4px", overflow: "hidden",
+            }}>
             {tx.nav.map((item, i) => (
-              <a key={item} href={`#${tx.navIds[i]}`}
-                onClick={() => setMenuOpen(false)}
-                style={{ color: th.text, textDecoration: "none", fontSize: "15px", fontWeight: 500 }}
-              >{item}</a>
+              <a key={item} href={`#${tx.navIds[i]}`} onClick={() => setMenuOpen(false)}
+                style={{ color: th.text, textDecoration: "none", fontSize: "15px", fontWeight: 500, padding: "10px 0", borderBottom: `1px solid ${th.border}` }}>
+                {item}
+              </a>
             ))}
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* ── HERO ── */}
-      <section id="main" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", paddingTop: "80px", position: "relative", zIndex: 1 }}>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          style={{ textAlign: "center", padding: "0 24px", maxWidth: "720px" }}
-        >
-          {/* Avatar */}
-          <div style={{ position: "relative", display: "inline-block", marginBottom: "28px" }}>
+      {/* ── HERO — split layout, full width, no circular avatar ── */}
+      <section id="main" style={{
+        paddingTop: "68px", minHeight: "92vh", display: "flex", alignItems: "center",
+        position: "relative", overflow: "hidden",
+      }}>
+        {/* subtle background accent shape */}
+        <div style={{
+          position: "absolute", top: "-10%", right: "-8%", width: "55vw", height: "55vw", maxWidth: "700px", maxHeight: "700px",
+          background: `radial-gradient(circle, ${th.accentSoft} 0%, transparent 70%)`,
+          borderRadius: "50%", pointerEvents: "none", zIndex: 0,
+        }} />
+
+        <div style={{
+          width: "100%", maxWidth: "1320px", margin: "0 auto", padding: "48px 5vw",
+          display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: "64px", alignItems: "center",
+          position: "relative", zIndex: 1,
+        }} className="hero-grid">
+
+          {/* Left: text */}
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }}>
             <div style={{
-              position: "absolute", inset: "-6px", borderRadius: "50%",
-              background: `conic-gradient(${th.accent}, transparent, ${th.accent})`,
-              animation: "spin 6s linear infinite",
-              zIndex: 0,
-            }} />
-            <img
-              src="/profile.jpg"
-              onClick={() => setZoom("/profile.jpg")}
-              style={{
-                width: "130px", height: "130px", borderRadius: "50%", objectFit: "cover",
-                border: `3px solid ${th.bg}`,
-                position: "relative", zIndex: 1,
-                cursor: "pointer",
-                boxShadow: `0 0 40px ${th.accentGlow}`,
-              }}
-            />
-          </div>
+              display: "inline-flex", alignItems: "center", gap: "8px",
+              border: `1px solid ${th.border}`, background: th.surfaceAlt,
+              borderRadius: "100px", padding: "6px 14px", marginBottom: "24px",
+              fontSize: "12.5px", fontWeight: 600, color: th.textMuted,
+            }}>
+              <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#22c55e" }} />
+              {tx.role}
+            </div>
 
-          {/* Name */}
-          <h1 style={{ fontSize: "clamp(32px,6vw,58px)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.1, margin: "0 0 12px" }}>
-            Iqbal Hafidz<br />
-            <span style={{ color: th.accent }}>Ramadhan</span>
-          </h1>
-          <p style={{ fontSize: "15px", color: th.textMuted, marginBottom: "32px", letterSpacing: "0.01em" }}>{tx.role}</p>
+            <h1 style={{ fontSize: "clamp(32px, 4.2vw, 52px)", fontWeight: 800, lineHeight: 1.15, letterSpacing: "-0.025em", marginBottom: "24px" }}>
+              {tx.heroLine1}{" "}
+              <span style={{ color: th.accent }}>{tx.heroKeyword}</span>{" "}
+              {tx.heroLine2}
+            </h1>
 
-          {/* CTA Buttons */}
-          <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
-            <a href="#contact" style={{
-              padding: "10px 24px", borderRadius: "8px",
-              background: th.accent, color: "#fff",
-              fontWeight: 600, fontSize: "14px", textDecoration: "none",
-              boxShadow: `0 0 18px ${th.accentGlow}`, transition: "all 0.2s",
-            }}>Contact Me</a>
-            <a href="#projects" style={{
-              padding: "10px 24px", borderRadius: "8px",
-              background: "transparent", color: th.accent,
-              border: `1px solid ${th.border}`,
-              fontWeight: 600, fontSize: "14px", textDecoration: "none",
-              transition: "all 0.2s",
-            }}>View Work</a>
-          </div>
-        </motion.div>
+            <p style={{ fontSize: "16.5px", lineHeight: 1.7, color: th.textMuted, maxWidth: "520px", marginBottom: "36px" }}>
+              {tx.heroDesc}
+            </p>
 
-        {/* About below hero */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          style={{
-            marginTop: "72px", maxWidth: "680px", width: "100%", padding: "0 24px",
-          }}
-        >
-          <Card th={th} style={{ padding: "28px 32px" }}>
-            <p style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: th.accent, fontWeight: 700, marginBottom: "12px" }}>◈ {tx.aboutTitle}</p>
-            <p style={{ color: th.textMuted, lineHeight: 1.8, fontSize: "14.5px" }}>{tx.about}</p>
-          </Card>
-        </motion.div>
+            <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", marginBottom: "48px" }}>
+              <a href="#contact" style={{
+                padding: "13px 26px", borderRadius: "10px",
+                background: th.accent, color: "#fff",
+                fontWeight: 600, fontSize: "14.5px", textDecoration: "none",
+                display: "inline-flex", alignItems: "center", gap: "6px",
+              }}>{tx.ctaPrimary} <ArrowUpRight size={16} /></a>
+              <a href="#projects" style={{
+                padding: "13px 26px", borderRadius: "10px",
+                background: "transparent", color: th.text,
+                border: `1px solid ${th.border}`,
+                fontWeight: 600, fontSize: "14.5px", textDecoration: "none",
+              }}>{tx.ctaSecondary}</a>
+            </div>
 
-        {/* Scroll cue */}
-        <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2 }}
-          style={{ position: "absolute", bottom: "32px", color: th.textMuted, fontSize: "12px", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
-          <span>{tx.scrollDown}</span>
-          <ChevronDown size={16} />
-        </motion.div>
+            {/* Stats row */}
+            <div style={{ display: "flex", gap: "40px", paddingTop: "28px", borderTop: `1px solid ${th.border}` }}>
+              {[
+                [projects.length + "+", tx.statProjects],
+                [certifications.length, tx.statCerts],
+                [organizations.length, tx.statOrg],
+              ].map(([num, label]) => (
+                <div key={label}>
+                  <div style={{ fontSize: "26px", fontWeight: 800, letterSpacing: "-0.02em" }}>{num}</div>
+                  <div style={{ fontSize: "12.5px", color: th.textFaint, fontWeight: 500 }}>{label}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Right: hero portrait banner (not circular) */}
+          <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+            style={{ position: "relative" }} className="hero-img-wrap">
+            <div style={{
+              position: "relative", borderRadius: "24px", overflow: "hidden",
+              aspectRatio: "4 / 5", border: `1px solid ${th.border}`,
+              boxShadow: th.shadowHover,
+            }}>
+              <img src="/profile.jpg" onClick={() => setZoom("/profile.jpg")}
+                style={{ width: "100%", height: "100%", objectFit: "cover", cursor: "zoom-in", display: "block" }} />
+              <div style={{
+                position: "absolute", inset: 0,
+                background: `linear-gradient(180deg, transparent 60%, ${mode === "dark" ? "rgba(0,0,0,0.45)" : "rgba(0,0,0,0.18)"} 100%)`,
+                pointerEvents: "none",
+              }} />
+            </div>
+            {/* floating accent card */}
+            <div style={{
+              position: "absolute", bottom: "-20px", left: "-20px",
+              background: th.surface, border: `1px solid ${th.border}`,
+              borderRadius: "14px", padding: "14px 18px", boxShadow: th.shadowHover,
+              display: "flex", alignItems: "center", gap: "10px",
+            }} className="floating-badge">
+              <span style={{ fontSize: "20px" }}>🛡️</span>
+              <div>
+                <div style={{ fontSize: "12.5px", fontWeight: 700 }}>Cyber Security</div>
+                <div style={{ fontSize: "11px", color: th.textFaint }}>Focus Area</div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── ABOUT ── full width band with alt background ── */}
+      <section id="about" style={{ background: th.bgAlt, borderTop: `1px solid ${th.border}`, borderBottom: `1px solid ${th.border}` }}>
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "100px 5vw", display: "grid", gridTemplateColumns: "0.8fr 1.2fr", gap: "64px" }} className="about-grid">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+            <Eyebrow th={th}>{tx.aboutEyebrow}</Eyebrow>
+            <h2 style={{ fontSize: "clamp(26px, 3vw, 36px)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.2 }}>{tx.aboutTitle}</h2>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}>
+            <p style={{ fontSize: "16px", lineHeight: 1.85, color: th.textMuted, marginBottom: "20px" }}>{tx.about}</p>
+            <p style={{ fontSize: "16px", lineHeight: 1.85, color: th.textMuted, marginBottom: "36px" }}>{tx.about2}</p>
+
+            <h3 style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", color: th.textFaint, marginBottom: "16px" }}>{tx.skillsTitle}</h3>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+              {skills.map((skill, i) => (
+                <motion.span key={skill}
+                  initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                  transition={{ delay: i * 0.03 }}
+                  style={{
+                    padding: "7px 15px", borderRadius: "8px",
+                    border: `1px solid ${th.border}`, background: th.surface,
+                    fontSize: "13px", fontWeight: 500, color: th.text,
+                  }}>{skill}</motion.span>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       {/* ── PROJECTS ── */}
-      <Section id="projects" th={th}>
-        <SectionTitle th={th}>{tx.projectsTitle}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "20px" }}>
-          {projects.map((p, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }} viewport={{ once: true }}>
-              <Card th={th}>
-                <div style={{ position: "relative", overflow: "hidden" }}>
-                  <img src={p.image} onClick={() => setZoom(p.image)}
-                    style={{ width: "100%", height: "180px", objectFit: "cover", display: "block", transition: "transform 0.4s ease", cursor: "zoom-in" }}
-                    onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
-                    onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
-                  />
-                  <div style={{ position: "absolute", top: "10px", left: "10px" }}>
-                    <Tag label={p.type} th={th} />
+      <Section id="projects">
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "100px 5vw" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "48px", flexWrap: "wrap", gap: "16px" }}>
+            <div>
+              <Eyebrow th={th}>{tx.projectsEyebrow}</Eyebrow>
+              <h2 style={{ fontSize: "clamp(26px, 3vw, 36px)", fontWeight: 800, letterSpacing: "-0.02em" }}>{tx.projectsTitle}</h2>
+            </div>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "24px" }}>
+            {projects.map((p, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: (i % 3) * 0.06 }} viewport={{ once: true }}>
+                <Card th={th}>
+                  <div style={{ position: "relative", overflow: "hidden" }}>
+                    <img src={p.image} onClick={() => setZoom(p.image)}
+                      style={{ width: "100%", height: "190px", objectFit: "cover", display: "block", transition: "transform 0.4s ease", cursor: "zoom-in" }}
+                      onMouseEnter={e => e.currentTarget.style.transform = "scale(1.04)"}
+                      onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"} />
+                    <div style={{
+                      position: "absolute", top: "12px", left: "12px",
+                      fontSize: "10.5px", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase",
+                      padding: "4px 10px", borderRadius: "100px",
+                      background: "rgba(255,255,255,0.92)", color: "#15181f",
+                    }}>{p.type}</div>
                   </div>
-                </div>
-                <div style={{ padding: "16px 18px" }}>
-                  <h3 style={{ fontSize: "14px", fontWeight: 600, marginBottom: "10px", lineHeight: 1.4 }}>{p.title}</h3>
-                  <a href={p.link} target="_blank" rel="noopener"
-                    style={{ fontSize: "12px", color: th.accent, textDecoration: "none", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "4px" }}>
-                    {tx.viewProject} <ExternalLink size={12} />
-                  </a>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
+                  <div style={{ padding: "18px 20px" }}>
+                    <h3 style={{ fontSize: "15px", fontWeight: 600, marginBottom: "12px", lineHeight: 1.4, minHeight: "42px" }}>{p.title}</h3>
+                    <a href={p.link} target="_blank" rel="noopener"
+                      style={{ fontSize: "13px", color: th.accent, textDecoration: "none", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "5px" }}>
+                      {tx.viewProject} <ArrowUpRight size={14} />
+                    </a>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </Section>
 
       {/* ── CERTIFICATIONS ── */}
-      <Section id="certifications" th={th}>
-        <SectionTitle th={th}>{tx.certsTitle}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "20px" }}>
-          {certifications.map((c, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }} viewport={{ once: true }}>
-              <Card th={th}>
-                <img src={c.image} onClick={() => setZoom(c.image)}
-                  style={{ width: "100%", height: "160px", objectFit: "cover", display: "block", cursor: "zoom-in" }} />
-                <div style={{ padding: "14px 16px" }}>
-                  <p style={{ fontSize: "13px", fontWeight: 500, lineHeight: 1.4 }}>{c.title}</p>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
+      <section id="certifications" style={{ background: th.bgAlt, borderTop: `1px solid ${th.border}`, borderBottom: `1px solid ${th.border}` }}>
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "100px 5vw" }}>
+          <Eyebrow th={th}>{tx.certsEyebrow}</Eyebrow>
+          <h2 style={{ fontSize: "clamp(26px, 3vw, 36px)", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "48px" }}>{tx.certsTitle}</h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(270px, 1fr))", gap: "24px" }}>
+            {certifications.map((c, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }} viewport={{ once: true }}>
+                <Card th={th}>
+                  <img src={c.image} onClick={() => setZoom(c.image)}
+                    style={{ width: "100%", height: "170px", objectFit: "cover", display: "block", cursor: "zoom-in" }} />
+                  <div style={{ padding: "16px 18px" }}>
+                    <p style={{ fontSize: "13.5px", fontWeight: 500, lineHeight: 1.45 }}>{c.title}</p>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </Section>
+      </section>
 
       {/* ── ORGANIZATION ── */}
-      <Section id="organization" th={th}>
-        <SectionTitle th={th}>{tx.orgTitle}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "20px" }}>
-          {organizations.map((o, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }} viewport={{ once: true }}>
-              <Card th={th}>
-                <img src={o.image} onClick={() => setZoom(o.image)}
-                  style={{ width: "100%", height: "160px", objectFit: "cover", display: "block", cursor: "zoom-in" }} />
-                <div style={{ padding: "14px 16px" }}>
-                  <h3 style={{ fontSize: "13px", fontWeight: 600 }}>{o.title}</h3>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </Section>
-
-      {/* ── SKILLS ── */}
-      <Section id="skills" th={th}>
-        <SectionTitle th={th}>{tx.skillsTitle}</SectionTitle>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", justifyContent: "center", maxWidth: "700px", margin: "0 auto" }}>
-          {skills.map((skill, i) => (
-            <motion.span key={skill}
-              initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: i * 0.04 }} viewport={{ once: true }}
-              whileHover={{ scale: 1.08 }}
-              style={{
-                padding: "8px 18px", borderRadius: "8px",
-                border: `1px solid ${th.border}`,
-                background: th.accentSoft,
-                fontSize: "13px", fontWeight: 500, color: th.text,
-                cursor: "default", transition: "all 0.2s",
-                boxShadow: `0 0 0 0 ${th.accentGlow}`,
-              }}
-              onMouseEnter={e => e.currentTarget.style.borderColor = th.borderHover}
-              onMouseLeave={e => e.currentTarget.style.borderColor = th.border}
-            >{skill}</motion.span>
-          ))}
+      <Section id="organization">
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "100px 5vw" }}>
+          <Eyebrow th={th}>{tx.orgEyebrow}</Eyebrow>
+          <h2 style={{ fontSize: "clamp(26px, 3vw, 36px)", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "48px" }}>{tx.orgTitle}</h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(270px, 1fr))", gap: "24px" }}>
+            {organizations.map((o, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }} viewport={{ once: true }}>
+                <Card th={th}>
+                  <img src={o.image} onClick={() => setZoom(o.image)}
+                    style={{ width: "100%", height: "170px", objectFit: "cover", display: "block", cursor: "zoom-in" }} />
+                  <div style={{ padding: "16px 18px" }}>
+                    <h3 style={{ fontSize: "13.5px", fontWeight: 600, lineHeight: 1.4 }}>{o.title}</h3>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </Section>
 
       {/* ── CONTACT ── */}
-      <Section id="contact" th={th}>
-        <SectionTitle th={th}>{tx.contactTitle}</SectionTitle>
-        <div style={{ display: "flex", justifyContent: "center", gap: "16px", flexWrap: "wrap" }}>
-          {[
-            { href: "mailto:iqbalhafidzr.work@gmail.com", icon: <Mail size={20} />, label: "Email" },
-            { href: "https://wa.me/6285161840017", icon: <Phone size={20} />, label: "WhatsApp" },
-            { href: "https://www.instagram.com/iqbaalraamaadhann/", icon: <Globe size={20} />, label: "Instagram" },
-            { href: "https://github.com/Resync02", icon: <GitBranch size={20} />, label: "GitHub" },
-          ].map(({ href, icon, label }) => (
-            <motion.a key={label} href={href} target="_blank" rel="noopener"
-              whileHover={{ scale: 1.08, y: -2 }}
-              style={{
-                display: "flex", flexDirection: "column", alignItems: "center", gap: "8px",
-                padding: "20px 28px", borderRadius: "12px",
-                border: `1px solid ${th.border}`, background: th.surface,
-                color: th.text, textDecoration: "none", fontSize: "13px", fontWeight: 500,
-                transition: "all 0.2s",
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.borderColor = th.borderHover;
-                e.currentTarget.style.boxShadow = `0 0 20px ${th.accentGlow}`;
-                e.currentTarget.style.color = th.accent;
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.borderColor = th.border;
-                e.currentTarget.style.boxShadow = "none";
-                e.currentTarget.style.color = th.text;
-              }}
-            >
-              {icon}
-              {label}
-            </motion.a>
-          ))}
-        </div>
-      </Section>
+      <section id="contact" style={{ background: th.bgAlt, borderTop: `1px solid ${th.border}` }}>
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "100px 5vw", textAlign: "center" }}>
+          <Eyebrow th={th}><span style={{ margin: "0 auto" }}>{tx.contactEyebrow}</span></Eyebrow>
+          <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, letterSpacing: "-0.02em", maxWidth: "640px", margin: "0 auto 16px" }}>{tx.contactTitle}</h2>
+          <p style={{ fontSize: "16px", color: th.textMuted, maxWidth: "480px", margin: "0 auto 48px" }}>{tx.contactDesc}</p>
 
-      {/* Footer */}
-      <footer style={{
-        textAlign: "center", padding: "28px", fontSize: "12px",
-        color: th.textMuted, borderTop: `1px solid ${th.border}`,
-        position: "relative", zIndex: 1,
-      }}>
-        © 2025 Iqbal Hafidz Ramadhan Built with Next.js
+          <div style={{ display: "flex", justifyContent: "center", gap: "16px", flexWrap: "wrap" }}>
+            {[
+              { href: "mailto:iqbalhafidzr.work@gmail.com", icon: <Mail size={18} />, label: "Email" },
+              { href: "https://wa.me/6285161840017", icon: <Phone size={18} />, label: "WhatsApp" },
+              { href: "https://www.instagram.com/iqbaalraamaadhann/", icon: <Globe size={18} />, label: "Instagram" },
+              { href: "https://github.com/Resync02", icon: <GitBranch size={18} />, label: "GitHub" },
+            ].map(({ href, icon, label }) => (
+              <a key={label} href={href} target="_blank" rel="noopener"
+                style={{
+                  display: "flex", alignItems: "center", gap: "9px",
+                  padding: "14px 24px", borderRadius: "10px",
+                  border: `1px solid ${th.border}`, background: th.surface,
+                  color: th.text, textDecoration: "none", fontSize: "14px", fontWeight: 600,
+                  transition: "all 0.2s",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = th.accent; e.currentTarget.style.color = th.accent; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = th.border; e.currentTarget.style.color = th.text; }}>
+                {icon}{label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <footer style={{ textAlign: "center", padding: "32px", fontSize: "12.5px", color: th.textFaint }}>
+        © 2025 Iqbal Hafidz Ramadhan
       </footer>
 
       {/* ── IMAGE ZOOM ── */}
       <AnimatePresence>
         {zoom && (
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             onClick={() => setZoom(null)}
             style={{
               position: "fixed", inset: 0, zIndex: 200,
-              background: "rgba(0,0,0,0.88)", backdropFilter: "blur(8px)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              cursor: "zoom-out",
-            }}
-          >
-            <motion.img
-              initial={{ scale: 0.88, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.88, opacity: 0 }}
-              src={zoom}
-              style={{ maxWidth: "90vw", maxHeight: "88vh", borderRadius: "12px", boxShadow: "0 0 60px rgba(0,0,0,0.6)" }}
-            />
+              background: "rgba(15,17,21,0.9)", backdropFilter: "blur(6px)",
+              display: "flex", alignItems: "center", justifyContent: "center", cursor: "zoom-out",
+            }}>
+            <motion.img initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
+              src={zoom} style={{ maxWidth: "90vw", maxHeight: "88vh", borderRadius: "12px", boxShadow: "0 20px 60px rgba(0,0,0,0.5)" }} />
           </motion.div>
         )}
       </AnimatePresence>
 
       <style>{`
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        ::-webkit-scrollbar { width: 5px; }
+        body { margin: 0; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: ${th.border}; border-radius: 4px; }
         .nav-links { display: flex; }
         .hamburger { display: none; }
+        .cta-nav { display: inline-flex; }
+        @media (max-width: 860px) {
+          .hero-grid { grid-template-columns: 1fr !important; }
+          .hero-img-wrap { order: -1; max-width: 360px; margin: 0 auto; }
+          .about-grid { grid-template-columns: 1fr !important; }
+        }
         @media (max-width: 768px) {
           .nav-links { display: none !important; }
           .hamburger { display: block !important; }
+          .cta-nav { display: none !important; }
         }
       `}</style>
     </div>
   );
 }
 
-function Section({ id, th, children }) {
-  return (
-    <section id={id} style={{ padding: "96px 24px", maxWidth: "1080px", margin: "0 auto", position: "relative", zIndex: 1 }}>
-      {children}
-    </section>
-  );
+function Section({ id, children }) {
+  return <section id={id}>{children}</section>;
 }
