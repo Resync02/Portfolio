@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Mail, Phone, Globe, ArrowUpRight, GitBranch, ArrowDown } from "lucide-react";
+import { Mail, Phone, Globe, ArrowUpRight, GitBranch, ArrowDown, Sun, Moon, Shield, Languages } from "lucide-react";
 
 // ─── TRANSLATIONS ───────────────────────────────────────────────────────────
 const t = {
@@ -203,7 +203,7 @@ export default function Portfolio() {
         padding: "0 5vw", height: "68px",
       }}>
         <a href="#main" style={{ fontWeight: 800, fontSize: "16px", letterSpacing: "-0.01em", color: th.text, textDecoration: "none" }}>
-          Iqbal<span style={{ color: th.accent }}>.</span>
+          IHR<span style={{ color: th.accent }}>.</span>
         </a>
 
         <div style={{ display: "flex", gap: "32px", alignItems: "center" }} className="nav-links">
@@ -231,16 +231,19 @@ export default function Portfolio() {
               color: th.textMuted, transition: "all 0.2s",
               display: "flex", alignItems: "center", gap: "6px",
             }}>
-            {lang === "id" ? <>🇮🇩 ID</> : <>🇬🇧 EN</>}
+            <Languages size={15} />
+            {lang === "id" ? "ID" : "EN"}
           </button>
 
           <button onClick={() => setMode(mode === "dark" ? "light" : "dark")} title="Toggle theme"
             style={{
               background: th.surfaceAlt, border: `1px solid ${th.border}`,
-              borderRadius: "8px", padding: "6px 10px",
-              fontSize: "15px", cursor: "pointer", lineHeight: 1,
+              borderRadius: "8px", padding: "6px 9px",
+              cursor: "pointer", lineHeight: 1,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              color: th.textMuted,
             }}>
-            {mode === "dark" ? "☀️" : "🌙"}
+            {mode === "dark" ? <Sun size={16} /> : <Moon size={16} />}
           </button>
 
           <a href="#contact" className="cta-nav" style={{
@@ -368,7 +371,13 @@ export default function Portfolio() {
               borderRadius: "14px", padding: "14px 18px", boxShadow: th.shadowHover,
               display: "flex", alignItems: "center", gap: "10px",
             }} className="floating-badge">
-              <span style={{ fontSize: "20px" }}>🛡️</span>
+              <div style={{
+                width: "36px", height: "36px", borderRadius: "9px",
+                background: th.accentSoft, color: th.accent,
+                display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+              }}>
+                <Shield size={18} />
+              </div>
               <div>
                 <div style={{ fontSize: "12.5px", fontWeight: 700 }}>Cyber Security</div>
                 <div style={{ fontSize: "11px", color: th.textFaint }}>Focus Area</div>
